@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Revit_Tab.SheetInputWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Sheet Information" Height="162" Width="363">
+        Title="Sheet Information" Height="181" Width="363">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,8 +24,8 @@
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtQuantity" Margin="5"/>
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Content="OK" Width="75" Margin="5" Click="btnOK_Click"/>
-            <Button Content="Cancel" Width="75" Margin="5" Click="btnCancel_Click"/>
+            <Button Content="OK" Width="75" Margin="5" Click="BtnOK_Click"/>
+            <Button Content="Cancel" Width="75" Margin="5" Click="BtnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

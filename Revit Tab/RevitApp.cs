@@ -31,7 +31,7 @@ namespace Revit_Tab
             PushButton button = panel.AddItem(buttonData) as PushButton;
             button.ToolTip = "Click to create sheets";
 
-            Uri imageUri = new Uri(@"C:\Code\Revit Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
+            Uri imageUri = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
             button.LargeImage = new BitmapImage(imageUri);
 
 

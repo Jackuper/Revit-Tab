@@ -13,7 +13,7 @@ namespace Revit_Tab
             InitializeComponent();
         }
 
-        private void btnOK_Click(object sender, RoutedEventArgs e)
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
             SheetNumber = txtSheetNumber.Text;
             SheetName = txtSheetName.Text;
@@ -31,7 +31,7 @@ namespace Revit_Tab
             }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();
