@@ -1,0 +1,11 @@
+C:\Code\Output\Jcup.dll
+C:\Code\Output\Jcup.pdb
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Revit Tab.csproj.AssemblyReference.cache
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Revit Tab.csproj.CoreCompileInputs.cache
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Jcup.dll
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Jcup.pdb
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Jcup_MarkupCompile.cache
+C:\Code\Revit Tab\Revit Tab\obj\Debug\Jcup.g.resources
+C:\Code\Revit Tab\Revit Tab\obj\Debug\SheetInputWindow.baml
+C:\Code\Revit Tab\Revit Tab\obj\Debug\SheetInputWindow.g.cs
