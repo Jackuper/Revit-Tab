@@ -37,14 +37,15 @@ namespace Revit_Tab
             button.LargeImage = new BitmapImage(imageUri);
 
             //Button #2 Testing!
-            PushButtonData FamilyLoader = new PushButtonData(
-                "FamilyLoader",
+            PushButtonData BulkLoadButtonData = new PushButtonData(
+                "BulkLoadBtn",
                 "Load Families",
                 assemblyPath,
-                "Revit_Tab.FamilyLoader"
+                "Revit_Tab.BulkLoadFamiliesCommand"
             );
-            PushButton button2 = panel.AddItem(FamilyLoader) as PushButton;
+            PushButton BulkLoadButton = panel.AddItem(BulkLoadButtonData) as PushButton;
             button.ToolTip = "Click to load in all C&T families";
+            
             // Button Image (Not working)
             Uri imageUri2 = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
             button.LargeImage = new BitmapImage(imageUri2);
