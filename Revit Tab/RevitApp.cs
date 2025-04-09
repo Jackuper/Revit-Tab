@@ -45,7 +45,12 @@ namespace Revit_Tab
             );
             PushButton button2 = panel.AddItem(FamilyLoader) as PushButton;
             button.ToolTip = "Click to load in all C&T families";
+            // Button Image (Not working)
+            Uri imageUri2 = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
+            button.LargeImage = new BitmapImage(imageUri2);
 
+
+            //Checking if it worked
             return Result.Succeeded;
         }
 
