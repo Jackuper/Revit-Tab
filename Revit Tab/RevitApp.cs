@@ -36,14 +36,14 @@ namespace Revit_Tab
             //(Storage) Uri imageUri = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
             //(Storage) button.LargeImage = new BitmapImage(imageUri);
 
-            //Button #2 This is a good template youll have to change some names
-            PushButtonData FamilyCatalogItem = new PushButtonData(
-                "FamilyCatalogItem",
-                "Load Families",
+            // Button for Family Catalog
+            PushButtonData catalogButtonData = new PushButtonData(
+                "FamilyCatalogBtn",
+                "Family Catalog",
                 assemblyPath,
-                "Revit_Tab.FamilyLoader"
+                "Revit_Tab.FamilyCatalogCommand"  // Fully-qualified command class name.
             );
-            PushButton button2 = panel.AddItem(FamilyCatalogItem) as PushButton;
+            PushButton button2 = panel.AddItem(catalogButtonData) as PushButton;
             button.ToolTip = "Click to load in all C&T families";
 
 

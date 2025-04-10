@@ -52,6 +52,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FamilyCatalogCommand.cs" />
     <Compile Include="Testing\Command3.cs" />
     <Compile Include="Testing\Command2.cs" />
     <Compile Include="Testing\Command4.cs" />
