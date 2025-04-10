@@ -18,3 +18,14 @@ C:\Code\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.CoreCompileInputs.cache
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Jcup.dll
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Jcup.pdb
+C:\Users\jacobembree\Downloads\Output\Jcup.dll
+C:\Users\jacobembree\Downloads\Output\Jcup.pdb
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Revit Tab.csproj.AssemblyReference.cache
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\SheetInputWindow.baml
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\SheetInputWindow.g.cs
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Jcup_MarkupCompile.cache
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Jcup.g.resources
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Revit Tab.csproj.CoreCompileInputs.cache
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Jcup.dll
+C:\Users\jacobembree\Downloads\Code\Revit Tab\obj\Debug\Jcup.pdb

@@ -33,10 +33,10 @@ namespace Revit_Tab
             button.ToolTip = "Click to create sheets";
 
             // Button Image
-            Uri imageUri = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
-            button.LargeImage = new BitmapImage(imageUri);
+            //(Storage) Uri imageUri = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
+            //(Storage) button.LargeImage = new BitmapImage(imageUri);
 
-            //Button #2 Testing!
+            //Button #2 This is a good template youll have to change some names
             PushButtonData FamilyLoader = new PushButtonData(
                 "FamilyLoader",
                 "Load Families",
@@ -45,6 +45,55 @@ namespace Revit_Tab
             );
             PushButton button2 = panel.AddItem(FamilyLoader) as PushButton;
             button.ToolTip = "Click to load in all C&T families";
+
+
+            //Button #3 This is a good template youll have to change some names
+            PushButtonData Command3 = new PushButtonData(
+                "Command3",                // Internal name.
+                "Load Families",           // Button label.
+                assemblyPath,             // Assembly path.
+                "Revit_Tab.Command3" // Command class.
+            );
+            PushButton Button3 = panel.AddItem(Command3) as PushButton;
+            button.ToolTip = "Click to load in all C&T families";
+
+            //Button #3 This is a good template youll have to change some names
+            PushButtonData Command4 = new PushButtonData(
+                "Command4",                // Internal name.
+                "Load Families",           // Button label.
+                assemblyPath,             // Assembly path.
+                "Revit_Tab.Command4" // Command class.
+            );
+            PushButton Button4 = panel.AddItem(Command4) as PushButton;
+            button.ToolTip = "Click to load in all C&T families";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             return Result.Succeeded;
         }
