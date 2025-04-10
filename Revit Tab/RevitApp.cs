@@ -57,7 +57,7 @@ namespace Revit_Tab
             PushButton Button3 = panel.AddItem(Command3) as PushButton;
             button.ToolTip = "Click to load in all C&T families";
 
-            //Button #3 This is a good template youll have to change some names
+            //Button #4 This is a good template youll have to change some names
             PushButtonData Command4 = new PushButtonData(
                 "Command4",                // Internal name.
                 "Load Families",           // Button label.
