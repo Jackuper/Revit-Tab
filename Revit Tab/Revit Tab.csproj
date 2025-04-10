@@ -38,7 +38,7 @@
       <HintPath>..\packages\Revit.RevitApi.x64.2023.0.0\lib\net48\RevitAPI.dll</HintPath>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>..\..\..\Program Files\Autodesk\Revit 2024\RevitAPIUI.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,6 +52,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command3.cs" />
+    <Compile Include="Command4.cs" />
     <Compile Include="CreateSheetCommand.cs" />
     <Compile Include="FamilyLoader.cs" />
     <Compile Include="RevitApp.cs" />
