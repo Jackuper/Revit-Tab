@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Revit_Tab
 {
-    internal class FamilyLoader
+    internal class Command2
     {
     }
 }

@@ -37,13 +37,13 @@ namespace Revit_Tab
             //(Storage) button.LargeImage = new BitmapImage(imageUri);
 
             //Button #2 This is a good template youll have to change some names
-            PushButtonData FamilyLoader = new PushButtonData(
-                "FamilyLoader",
+            PushButtonData Command2 = new PushButtonData(
+                "Command2",
                 "Load Families",
                 assemblyPath,
                 "Revit_Tab.FamilyLoader"
             );
-            PushButton button2 = panel.AddItem(FamilyLoader) as PushButton;
+            PushButton button2 = panel.AddItem(Command2) as PushButton;
             button.ToolTip = "Click to load in all C&T families";
 
 

@@ -52,22 +52,30 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command3.cs" />
-    <Compile Include="Command4.cs" />
-    <Compile Include="CreateSheetCommand.cs" />
-    <Compile Include="FamilyLoader.cs" />
+    <Compile Include="Testing\Command3.cs" />
+    <Compile Include="Testing\Command2.cs" />
+    <Compile Include="Testing\Command4.cs" />
+    <Compile Include="Page Creation\CreateSheetCommand.cs" />
+    <Compile Include="FamilyCatalogWindow.xaml.cs">
+      <DependentUpon>FamilyCatalogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FamilyCatalogItem.cs" />
     <Compile Include="RevitApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SheetInputWindow.xaml.cs">
+    <Compile Include="Page Creation\SheetInputWindow.xaml.cs">
       <DependentUpon>SheetInputWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MyCustomTab.addin" />
-    <None Include="packages.config" />
+    <None Include="Utility\MyCustomTab.addin" />
+    <None Include="Utility\packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="SheetInputWindow.xaml">
+    <Page Include="FamilyCatalogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page Creation\SheetInputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
