@@ -16,6 +16,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MyCustomWindow.xaml = MyCustomWindow.xaml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Familes", "Familes", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\Control Line Head - Circle.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\Control Line Head - Circle.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\CT Startup Screen.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\CT Startup Screen.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\GTPTag_Resizable.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\GTPTag_Resizable.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\HBA - Specialty Tag.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\HBA - Specialty Tag.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\Room Tag - Name Number.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\Room Tag - Name Number.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\Sleeve Tag.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\Sleeve Tag.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_Blank 11x17 Portrait.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_Blank 11x17 Portrait.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_Blank 11x17.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_Blank 11x17.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_Blank 24x36.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_Blank 24x36.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Horizontal.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Horizontal.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Horizontal_ORL.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Horizontal_ORL.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Horizontal_WIL.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Horizontal_WIL.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Vertical.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 11x17 Vertical.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 22x34.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 22x34.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 24x36.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 24x36.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 30x42 Blank.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 30x42 Blank.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 30x42.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 30x42.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 30x42_r20.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 30x42_r20.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 36x48.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 36x48.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 8_5x11 Horizontal.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT 8_5x11 Horizontal.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT Pres 11x17.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\TB_CT Pres 11x17.rfa
+		..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\View Title - 11x17 Name.rfa = ..\..\DC\ACCDocs\C&T\C&T VDC Hub\Project Files\Standards - Revit\Families\Annotations_Titleblocks\View Title - 11x17 Name.rfa
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +55,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {F4B1E8D5-7B62-418C-9F4B-50833AC94E1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B833DE73-3442-46B0-8ACB-E96B825C8A42}
