@@ -13,7 +13,7 @@ namespace Revit_Tab
     public class FamilyCatalogCommand : IExternalCommand
     {
         // You might store your families in a known folder.
-        private const string FamiliesFolder = @"C:\MyFamilyLibrary\";
+        private const string FamiliesFolder = @"O:\VDC Standards\Revit Content\Familes\";
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -37,7 +37,7 @@ namespace Revit_Tab
                     FamilyName = Path.GetFileNameWithoutExtension(f),
                     Description = "Description for " + Path.GetFileNameWithoutExtension(f),  // Optionally customize
                     // You can set a default thumbnail here. For example, if you have a default image.
-                    Thumbnail = new BitmapImage(new Uri(@"C:\Path\To\DefaultThumbnail.png", UriKind.Absolute)),
+                    Thumbnail = new BitmapImage(new Uri(@"C:\BIM\Screenshot 2025-04-11 085545.png", UriKind.Absolute)),
                     IsSelected = false
                 })
             );
