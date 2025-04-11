@@ -10,8 +10,6 @@ C:\Code\Revit Tab\Revit Tab\obj\Debug\Jcup.g.resources
 C:\Code\Revit Tab\Revit Tab\obj\Debug\SheetInputWindow.baml
 C:\Code\Revit Tab\Revit Tab\obj\Debug\SheetInputWindow.g.cs
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.AssemblyReference.cache
-C:\Code\Revit-Tab\Revit Tab\obj\Debug\SheetInputWindow.baml
-C:\Code\Revit-Tab\Revit Tab\obj\Debug\SheetInputWindow.g.cs
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Jcup_MarkupCompile.cache
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Jcup.g.resources
 C:\Code\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.CoreCompileInputs.cache
@@ -42,3 +40,7 @@ C:\Users\jacobembree\Downloads\Code 2\Revit Tab\obj\Debug\Revit Tab.csproj.CoreC
 C:\Users\jacobembree\Downloads\Code 2\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
 C:\Users\jacobembree\Downloads\Code 2\Revit Tab\obj\Debug\Jcup.dll
 C:\Users\jacobembree\Downloads\Code 2\Revit Tab\obj\Debug\Jcup.pdb
+C:\Code\Revit-Tab\Revit Tab\obj\Debug\FamilyCatalogWindow.baml
+C:\Code\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.baml
+C:\Code\Revit-Tab\Revit Tab\obj\Debug\FamilyCatalogWindow.g.cs
+C:\Code\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.g.cs
