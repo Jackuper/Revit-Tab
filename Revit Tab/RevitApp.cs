@@ -48,21 +48,24 @@ namespace Revit_Tab
 
 
             //Button #3 This is a good template youll have to change some names
-            //PushButtonData Command3 = new PushButtonData(
-                //"Command3",                // Internal name.
-                //"Load Families",           // Button label.
-                //assemblyPath,             // Assembly path.
-                //"Revit_Tab.Command3" // Command class.
+            PushButtonData view3DButtonData = new PushButtonData(
+                "Create3DViewsPerLevel",
+                "3D Per Level",
+                assemblyPath,
+                "Revit_Tab.Create3DViewsPerLevelCommand"
+            );
+            PushButton view3DButton = panel.AddItem(view3DButtonData) as PushButton;
+            view3DButton.ToolTip = "Automatically create 3D views for each level.";
             //);
             //PushButton Button3 = panel.AddItem(Command3) as PushButton;
             //button.ToolTip = "Click to load in all C&T families";
 
             //Button #4 This is a good template youll have to change some names
             //PushButtonData Command4 = new PushButtonData(
-                //"Command4",                // Internal name.
-                //"Load Families",           // Button label.
-                //assemblyPath,             // Assembly path.
-                //"Revit_Tab.Command4" // Command class.
+            //"Command4",                // Internal name.
+            //"Load Families",           // Button label.
+            //assemblyPath,             // Assembly path.
+            //"Revit_Tab.Command4" // Command class.
             //);
             //PushButton Button4 = panel.AddItem(Command4) as PushButton;
             //button.ToolTip = "Click to load in all C&T families";
