@@ -37,14 +37,13 @@ namespace Revit_Tab
             //(Storage) button.LargeImage = new BitmapImage(imageUri);
 
             // Button for Family Catalog
-            PushButtonData catalogButtonData = new PushButtonData(
-                "FamilyCatalogBtn",
-                "Family Catalog",
+            PushButtonData PushButtonData = new PushButtonData(
+                "CreateKingStuds",
+                "Create\nKing Studs",
                 assemblyPath,
-                "Revit_Tab.FamilyCatalogCommand"  // Fully-qualified command class name.
-            );
-            PushButton button2 = panel.AddItem(catalogButtonData) as PushButton;
-            button.ToolTip = "Click to load in all C&T families";
+                "Revit_Tab.CreateKingStudsCommand"
+                );
+            PushButtonData btnKingStuds = PushButtonData;  // Fully-qualified command class name.);
 
 
             //Button #3 This is a good template youll have to change some names

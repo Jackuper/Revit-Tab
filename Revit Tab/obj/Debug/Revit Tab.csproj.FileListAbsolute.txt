@@ -47,9 +47,7 @@ C:\Code\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.g.cs
 C:\Users\jacobembree\Source\Repos\Output\Jcup.dll
 C:\Users\jacobembree\Source\Repos\Output\Jcup.pdb
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.AssemblyReference.cache
-C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\FamilyCatalogWindow.baml
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.baml
-C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\FamilyCatalogWindow.g.cs
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.g.cs
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Jcup_MarkupCompile.cache
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Jcup.g.resources
@@ -57,3 +55,5 @@ C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Jcup.dll
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Jcup.pdb
+O:\VDC Standards\Revit Addins\Input Folder\Jcup.dll
+O:\VDC Standards\Revit Addins\Input Folder\Jcup.pdb
