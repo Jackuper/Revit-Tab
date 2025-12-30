@@ -69,6 +69,9 @@
       <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    
+    <!-- Dependencies from remote -->
+    <PackageReference Include="Aspose.Cells" Version="25.10.0" />
   </ItemGroup>
   
   <ItemGroup>
