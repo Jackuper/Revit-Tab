@@ -1,17 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release_2021;Release_2022;Release_2023;Release_2024;Release_2025</Configurations>
     <AssemblyName>Jcup</AssemblyName>
     <RootNamespace>Revit_Tab</RootNamespace>
-    <!-- GenerateAssemblyInfo needs to be false if you have a Properties/AssemblyInfo.cs file, 
-         otherwise delete AssemblyInfo.cs and let the SDK generate it. 
-         I'll assume we want to use the existing one for now, so we set this to false. -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <!-- Fix for MC1000 error with .NET 4.8 WPF projects on newer SDKs -->
     <MarkMarkupCompilePass1AsWinFX>true</MarkMarkupCompilePass1AsWinFX>
   </PropertyGroup>
 
@@ -20,26 +16,31 @@
     <RevitVersion>2021</RevitVersion>
     <OutputPath>bin\Release\2021\</OutputPath>
     <DefineConstants>TRACE;REVIT2021</DefineConstants>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Release_2022'))">
     <RevitVersion>2022</RevitVersion>
     <OutputPath>bin\Release\2022\</OutputPath>
     <DefineConstants>TRACE;REVIT2022</DefineConstants>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Release_2023'))">
     <RevitVersion>2023</RevitVersion>
     <OutputPath>bin\Release\2023\</OutputPath>
     <DefineConstants>TRACE;REVIT2023</DefineConstants>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Release_2024'))">
     <RevitVersion>2024</RevitVersion>
     <OutputPath>bin\Release\2024\</OutputPath>
     <DefineConstants>TRACE;REVIT2024</DefineConstants>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Release_2025'))">
     <RevitVersion>2025</RevitVersion>
     <OutputPath>bin\Release\2025\</OutputPath>
     <DefineConstants>TRACE;REVIT2025</DefineConstants>
+    <TargetFramework>net8.0-windows</TargetFramework>
   </PropertyGroup>
   
   <!-- Default Debug -->
@@ -47,28 +48,14 @@
     <RevitVersion>2023</RevitVersion>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;REVIT2023</DefineConstants>
+    <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
-  <!-- References -->
+  <!-- NuGet References for Cloud Building -->
   <ItemGroup>
-    <!-- Revit API References -->
-    <Reference Include="RevitAPI">
-      <HintPath>$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="RevitAPIUI">
-      <HintPath>$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPIUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <!-- Fallbacks -->
-    <Reference Include="RevitAPI" Condition="!Exists('$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPI.dll')">
-      <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="RevitAPIUI" Condition="!Exists('$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPIUI.dll')">
-      <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPIUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <!-- Dynamic Package Versioning -->
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" />
+    <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />
     
     <!-- Dependencies from remote -->
     <PackageReference Include="Aspose.Cells" Version="25.10.0" />
