@@ -1,85 +1,80 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3B0CD4C4-D3D9-4FE7-96E1-0782C4F5B86D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Revit_Tab</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <Configurations>Debug;Release_2021;Release_2022;Release_2023;Release_2024;Release_2025</Configurations>
     <AssemblyName>Jcup</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
+    <RootNamespace>Revit_Tab</RootNamespace>
+    <!-- GenerateAssemblyInfo needs to be false if you have a Properties/AssemblyInfo.cs file, 
+         otherwise delete AssemblyInfo.cs and let the SDK generate it. 
+         I'll assume we want to use the existing one for now, so we set this to false. -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- Fix for MC1000 error with .NET 4.8 WPF projects on newer SDKs -->
+    <MarkMarkupCompilePass1AsWinFX>true</MarkMarkupCompilePass1AsWinFX>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\Output\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <!-- Configuration-specific properties -->
+  <PropertyGroup Condition="$(Configuration.Contains('Release_2021'))">
+    <RevitVersion>2021</RevitVersion>
+    <OutputPath>bin\Release\2021\</OutputPath>
+    <DefineConstants>TRACE;REVIT2021</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <PropertyGroup Condition="$(Configuration.Contains('Release_2022'))">
+    <RevitVersion>2022</RevitVersion>
+    <OutputPath>bin\Release\2022\</OutputPath>
+    <DefineConstants>TRACE;REVIT2022</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Release_2023'))">
+    <RevitVersion>2023</RevitVersion>
+    <OutputPath>bin\Release\2023\</OutputPath>
+    <DefineConstants>TRACE;REVIT2023</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Release_2024'))">
+    <RevitVersion>2024</RevitVersion>
+    <OutputPath>bin\Release\2024\</OutputPath>
+    <DefineConstants>TRACE;REVIT2024</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Release_2025'))">
+    <RevitVersion>2025</RevitVersion>
+    <OutputPath>bin\Release\2025\</OutputPath>
+    <DefineConstants>TRACE;REVIT2025</DefineConstants>
+  </PropertyGroup>
+  
+  <!-- Default Debug -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <RevitVersion>2023</RevitVersion>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;REVIT2023</DefineConstants>
+  </PropertyGroup>
+
+  <!-- References -->
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="RevitAPI, Version=23.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Revit.RevitApi.x64.2023.0.0\lib\net48\RevitAPI.dll</HintPath>
+    <!-- Revit API References -->
+    <Reference Include="RevitAPI">
+      <HintPath>$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI">
-      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
+      <HintPath>$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <!-- Fallbacks -->
+    <Reference Include="RevitAPI" Condition="!Exists('$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPI.dll')">
+      <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI" Condition="!Exists('$(ProgramData)\Autodesk\Revit\$(RevitVersion)\RevitAPIUI.dll')">
+      <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
+  
   <ItemGroup>
-    <Compile Include="FamilyCatalogCommand.cs" />
-    <Compile Include="Testing\Command3.cs" />
-    <Compile Include="Testing\Command2.cs" />
-    <Compile Include="Testing\Command4.cs" />
-    <Compile Include="Page Creation\CreateSheetCommand.cs" />
-    <Compile Include="FamilyCatalogWindow.xaml.cs">
-      <DependentUpon>FamilyCatalogWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FamilyCatalogItem.cs" />
-    <Compile Include="RevitApp.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Page Creation\SheetInputWindow.xaml.cs">
-      <DependentUpon>SheetInputWindow.xaml</DependentUpon>
-    </Compile>
+    <None Update="Utility\MyCustomTab.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Utility\MyCustomTab.addin" />
-    <None Include="Utility\packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="FamilyCatalogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page Creation\SheetInputWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>
