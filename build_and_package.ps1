@@ -27,8 +27,14 @@ foreach ($ver in $versions) {
     
     # Construct path to the output bin folder
     # The csproj OutputPath is relative (bin\Release\202x\), so we combine it with project dir
+    # SDK projects append the framework (net48) to the path
     $projectDir = Split-Path $solutionPath
-    $sourceDir = Join-Path $projectDir "bin\Release\$ver"
+    $sourceDir = Join-Path $projectDir "bin\Release\$ver\net48"
+    
+    # Fallback to check without net48 if not found (just in case)
+    if (-not (Test-Path $sourceDir)) {
+        $sourceDir = Join-Path $projectDir "bin\Release\$ver"
+    }
     
     if (Test-Path $sourceDir) {
         Copy-Item "$sourceDir\*.dll" -Destination $targetDir
