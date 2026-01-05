@@ -55,3 +55,23 @@ C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Jcup.dll
 C:\Users\jacobembree\Source\Repos\Revit-Tab\Revit Tab\obj\Debug\Jcup.pdb
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\Utility\MyCustomTab.addin
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\Families\Stud.rfa
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\Jcup.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\Jcup.pdb
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\Aspose.Cells.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\AdWindows.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\RevitAPI.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\RevitAPIUI.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\UIFramework.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.AssemblyReference.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.baml
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Page Creation\SheetInputWindow.g.cs
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Jcup_MarkupCompile.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Jcup.g.resources
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.CoreCompileInputs.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.sourcelink.json
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Revit Tab.csproj.Up2Date
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Jcup.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\Jcup.pdb

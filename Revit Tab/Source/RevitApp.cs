@@ -33,8 +33,8 @@ namespace Revit_Tab
             button.ToolTip = "Click to create sheets";
 
             // Button Image
-            //(Storage) Uri imageUri = new Uri(@"C:\Code\Revit-Tab\Revit Tab\Images\Create page.jpg", UriKind.Absolute);
-            //(Storage) button.LargeImage = new BitmapImage(imageUri);
+            // Uri imageUri = new Uri(@"/Jcup;component/Images/Create page.jpg", UriKind.Relative);
+            // button.LargeImage = new BitmapImage(imageUri);
 
             // Button for Family Catalog
             PushButtonData PushButtonData = new PushButtonData(
@@ -42,13 +42,11 @@ namespace Revit_Tab
                 "Create\nKing Studs",
                 assemblyPath,
                 "Revit_Tab.CreateKingStudsCommand"
-                );
-            PushButtonData btnKingStuds = PushButtonData;  // Fully-qualified command class name.);
+            );
+            PushButtonData btnKingStuds = PushButtonData;
             PushButton kingStudsButton = panel.AddItem(btnKingStuds) as PushButton;
             kingStudsButton.ToolTip = "Click to place King Studs around doors and windows";
 
-
-            //Button #3 This is a good template youll have to change some names
             PushButtonData view3DButtonData = new PushButtonData(
                 "Create3DViewsPerLevel",
                 "3D Per Level",
@@ -57,47 +55,6 @@ namespace Revit_Tab
             );
             PushButton view3DButton = panel.AddItem(view3DButtonData) as PushButton;
             view3DButton.ToolTip = "Automatically create 3D views for each level.";
-            //);
-            //PushButton Button3 = panel.AddItem(Command3) as PushButton;
-            //button.ToolTip = "Click to load in all C&T families";
-
-            //Button #4 This is a good template youll have to change some names
-            //PushButtonData Command4 = new PushButtonData(
-            //"Command4",                // Internal name.
-            //"Load Families",           // Button label.
-            //assemblyPath,             // Assembly path.
-            //"Revit_Tab.Command4" // Command class.
-            //);
-            //PushButton Button4 = panel.AddItem(Command4) as PushButton;
-            //button.ToolTip = "Click to load in all C&T families";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             return Result.Succeeded;
         }
@@ -108,4 +65,3 @@ namespace Revit_Tab
         }
     }
 }
-

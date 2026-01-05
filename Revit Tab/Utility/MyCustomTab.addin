@@ -2,7 +2,7 @@
 <RevitAddIns>
   <AddIn Type="Application">
     <Name>Clancy Theys</Name>
-    <Assembly>C:\Users\jacobembree\Source\Repos\Output\Jcup.dll</Assembly>
+    <Assembly>Jcup\Jcup.dll</Assembly>
     <AddInId>87654321-4321-4321-4321-1234567890ab</AddInId>
     <FullClassName>Revit_Tab.RevitApp</FullClassName>
     <VendorId>MyCompany</VendorId>
