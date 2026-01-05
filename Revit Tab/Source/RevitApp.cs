@@ -44,6 +44,8 @@ namespace Revit_Tab
                 "Revit_Tab.CreateKingStudsCommand"
                 );
             PushButtonData btnKingStuds = PushButtonData;  // Fully-qualified command class name.);
+            PushButton kingStudsButton = panel.AddItem(btnKingStuds) as PushButton;
+            kingStudsButton.ToolTip = "Click to place King Studs around doors and windows";
 
 
             //Button #3 This is a good template youll have to change some names

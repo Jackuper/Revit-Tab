@@ -1,0 +1,119 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "Aspose.Cells/25.10.0": {
+        "type": "package",
+        "compile": {
+          "lib/net461/Aspose.Cells.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/Aspose.Cells.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Aspose.Cells/25.10.0": {
+      "sha512": "TCxfrl6V4Q455K3U5x6yydQWJ9QlzO6raeAvkXp+9pIfFeRp8P7IJiA/ULPm9Cx5GIHg3lYEERWyrUNTVVJ5bw==",
+      "type": "package",
+      "path": "aspose.cells/25.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Help/Aspose.Cells For .NET Documentation.chm",
+        "License/Aspose_End-User-License-Agreement.txt",
+        "License/thirdpartylicenses.Aspose.Cells.for.NET.pdf",
+        "aspose.cells.25.10.0.nupkg.sha512",
+        "aspose.cells.nuspec",
+        "images/aspose_cells-for-net.png",
+        "lib/net40/Aspose.Cells.dll",
+        "lib/net40/Aspose.Cells.xml",
+        "lib/net461/Aspose.Cells.dll",
+        "lib/net461/Aspose.Cells.xml",
+        "lib/net6.0-windows7.0/Aspose.Cells.dll",
+        "lib/net6.0-windows7.0/Aspose.Cells.xml",
+        "lib/net6.0/Aspose.Cells.dll",
+        "lib/net6.0/Aspose.Cells.xml",
+        "lib/net8.0-windows7.0/Aspose.Cells.dll",
+        "lib/net8.0-windows7.0/Aspose.Cells.xml",
+        "lib/net8.0/Aspose.Cells.dll",
+        "lib/net8.0/Aspose.Cells.xml",
+        "lib/net9.0-windows7.0/Aspose.Cells.dll",
+        "lib/net9.0-windows7.0/Aspose.Cells.xml",
+        "lib/net9.0/Aspose.Cells.dll",
+        "lib/net9.0/Aspose.Cells.xml",
+        "lib/netstandard2.0/Aspose.Cells.dll",
+        "lib/netstandard2.0/Aspose.Cells.xml"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "Aspose.Cells >= 25.10.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\jacobembree\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\jacobembree\\Revit-Tab\\Revit Tab\\Revit Tab.csproj",
+      "projectName": "Jcup",
+      "projectPath": "C:\\Users\\jacobembree\\Revit-Tab\\Revit Tab\\Revit Tab.csproj",
+      "packagesPath": "C:\\Users\\jacobembree\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jacobembree\\Revit-Tab\\Revit Tab\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\jacobembree\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net48": {
+        "targetAlias": "net48",
+        "dependencies": {
+          "Aspose.Cells": {
+            "target": "Package",
+            "version": "[25.10.0, )"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

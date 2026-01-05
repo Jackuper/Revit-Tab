@@ -1,0 +1,16 @@
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Revit Tab.csproj.AssemblyReference.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Revit Tab.csproj.CoreCompileInputs.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Release\Utility\MyCustomTab.addin
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Release\Jcup.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Release\Jcup.pdb
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Release\Aspose.Cells.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Page Creation\SheetInputWindow.baml
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Page Creation\SheetInputWindow.g.cs
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Jcup_MarkupCompile.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Jcup.g.resources
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Revit Tab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Revit Tab.sourcelink.json
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Revit Tab.csproj.Up2Date
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Jcup.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Release\Jcup.pdb
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Release\Families\Stud.rfa
