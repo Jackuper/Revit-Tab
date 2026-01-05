@@ -1,0 +1,64 @@
+name: Build Revit Tab
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          8.0.x
+          6.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore "Revit Tab\Revit Tab.csproj"
+
+    - name: Build All Versions
+      shell: powershell
+      run: |
+        $versions = @("2021", "2022", "2023", "2024", "2025")
+        foreach ($ver in $versions) {
+            Write-Host "Building Release_$ver..."
+            dotnet build "Revit Tab\Revit Tab.csproj" -c "Release_$ver" --no-restore
+        }
+
+    - name: Collect Artifacts
+      shell: powershell
+      run: |
+        New-Item -Path "Deploy" -ItemType Directory -Force
+        $versions = @("2021", "2022", "2023", "2024", "2025")
+        foreach ($ver in $versions) {
+            $dest = "Deploy\$ver"
+            New-Item -Path $dest -ItemType Directory -Force
+            
+            # Identify output path (handling net48 vs net8.0-windows)
+            if ($ver -eq "2025") {
+                $src = "Revit Tab\bin\Release\$ver\net8.0-windows"
+            } else {
+                $src = "Revit Tab\bin\Release\$ver\net48"
+            }
+            
+            if (Test-Path $src) {
+                Copy-Item "$src\*.dll" -Destination $dest
+                Copy-Item "Revit Tab\Utility\MyCustomTab.addin" -Destination "$dest\Jcup.addin"
+            }
+        }
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Revit-Tab-Builds
+        path: |
+          Deploy/
+          Install-RevitTab.bat

@@ -1,12 +1,16 @@
 # Visual Studio
 .vs/
+<<<<<<< HEAD
 bin/
 obj/
+=======
+>>>>>>> 6529a16a720ee2a0ca2ddf5313a421176bbcfd60
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
+<<<<<<< HEAD
 # VS Code
 .vscode/
 
@@ -20,3 +24,29 @@ obj/
 # Other
 Thumbs.db
 .DS_Store
+=======
+# Build results
+[Bb]in/
+[Oo]bj/
+Deploy/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code
+.vscode/
+>>>>>>> 6529a16a720ee2a0ca2ddf5313a421176bbcfd60
