@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.ApplicationServices;
@@ -17,13 +18,32 @@ namespace Revit_Tab
             TaskDialog.Show("Startup Check", "The updated add-in code is running! Checking images next...");
 
             string tabName = "Clancy Theys";
+            string panelName = "Project Setup";
+
             try
             {
                 application.CreateRibbonTab(tabName);
             }
             catch (Exception) { }
 
-            RibbonPanel panel = application.CreateRibbonPanel(tabName, "Project Setup");
+            // Check if panel already exists
+            RibbonPanel panel = application.GetRibbonPanels(tabName)
+                .FirstOrDefault(p => p.Name == panelName);
+
+            // Create panel only if it doesn't exist
+            if (panel == null)
+            {
+                panel = application.CreateRibbonPanel(tabName, panelName);
+            }
+            else
+            {
+                // Panel already exists, check if it already has buttons
+                if (panel.GetItems().Count > 0)
+                {
+                    // Buttons already added, no need to add them again
+                    return Result.Succeeded;
+                }
+            }
 
             // Uncomment to debug resource names if images are missing
             // DebugResources();
