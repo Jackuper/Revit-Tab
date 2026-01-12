@@ -14,9 +14,6 @@ namespace Revit_Tab
     {
         public Result OnStartup(UIControlledApplication application)
         {
-            // PROOF OF LIFE: Confirm new code is running
-            TaskDialog.Show("Startup Check", "The updated add-in code is running! Checking images next...");
-
             string tabName = "Clancy Theys";
             string panelName = "Project Setup";
 
@@ -85,6 +82,14 @@ namespace Revit_Tab
             );
             PushButton view3DButton = panel.AddItem(view3DButtonData) as PushButton;
             view3DButton.ToolTip = "Automatically create 3D views for each level.";
+
+            // Add image for 3D Views button (you'll need to add a 3DViews.png image to the Images folder)
+            var view3DImage = GetImageSource("Revit_Tab.Images.3DViews.png");
+            if (view3DImage != null)
+            {
+                view3DButton.LargeImage = view3DImage;
+                view3DButton.Image = view3DImage;
+            }
 
             return Result.Succeeded;
         }
