@@ -1,0 +1,20 @@
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\Utility\MyCustomTab.addin
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\Families\Stud.rfa
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\Jcup.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\Jcup.pdb
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\Aspose.Cells.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\AdWindows.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\RevitAPI.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\RevitAPIUI.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\bin\Debug\net48\UIFramework.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Revit Tab.csproj.AssemblyReference.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Page Creation\SheetInputWindow.baml
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Page Creation\SheetInputWindow.g.cs
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Jcup_MarkupCompile.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Jcup.g.resources
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Revit Tab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Revit Tab.csproj.CoreCompileInputs.cache
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Revit Tab.sourcelink.json
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Revit Tab.csproj.Up2Date
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Jcup.dll
+C:\Users\jacobembree\Revit-Tab\Revit Tab\obj\Debug\net48\Jcup.pdb

@@ -3,7 +3,7 @@
   <AddIn Type="Application">
     <Name>Clancy Theys</Name>
     <Assembly>Jcup\Jcup.dll</Assembly>
-    <AddInId>87654321-4321-4321-4321-1234567890ab</AddInId>
+    <AddInId>A0B1C2D3-E4F5-4678-9012-3456789ABCDE</AddInId>
     <FullClassName>Revit_Tab.RevitApp</FullClassName>
     <VendorId>MyCompany</VendorId>
     <VendorDescription>Custom Revit Tab Example</VendorDescription>

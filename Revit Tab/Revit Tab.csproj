@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Jcup</AssemblyName>
+    <RootNamespace>Revit_Tab</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2023.*" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
+    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="2025.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.Cells" Version="25.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Utility\MyCustomTab.addin" />
+    <Content Include="Utility\MyCustomTab.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Images\**" />
+  </ItemGroup>
+  
+  <Target Name="CopyFilesToRevitAddins" AfterTargets="Build">
+    <ItemGroup>
+      <RevitVersionToDeploy Include="2023" Condition="'$(TargetFramework)' == 'net48'" />
+      <RevitVersionToDeploy Include="2024" Condition="'$(TargetFramework)' == 'net48'" />
+      <RevitVersionToDeploy Include="2025" Condition="'$(TargetFramework)' == 'net8.0-windows'" />
+    </ItemGroup>
+
+    <PropertyGroup>
+      <RevitAddinsPath>$(AppData)\Autodesk\Revit\Addins\%(RevitVersionToDeploy.Identity)</RevitAddinsPath>
+      <AddinBundlePath>$(RevitAddinsPath)\$(AssemblyName)</AddinBundlePath>
+    </PropertyGroup>
+    
+    <Message Text="Deploying $(TargetFramework) build to Revit %(RevitVersionToDeploy.Identity)..." Importance="high" />
+    
+    <MakeDir Directories="$(AddinBundlePath)" />
+    <ItemGroup>
+      <SourceFiles Include="$(TargetDir)**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(AddinBundlePath)\%(RecursiveDir)" />
+    <Copy SourceFiles="$(ProjectDir)Utility\MyCustomTab.addin" DestinationFolder="$(RevitAddinsPath)" />
+  </Target>
+</Project>
