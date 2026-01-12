@@ -68,8 +68,12 @@ namespace Revit_Tab
 
                     view.Name = $"3D - {level.Name}";
                     view.SetSectionBox(sectionBox);
-                    view.CropBoxActive = true;
-                    view.CropBoxVisible = true;
+
+                    // CRITICAL: Activate the section box to make geometry visible
+                    view.IsSectionBoxActive = true;
+
+                    // Optional: Set detail level for better visibility
+                    view.DetailLevel = ViewDetailLevel.Fine;
                 }
 
                 tx.Commit();
