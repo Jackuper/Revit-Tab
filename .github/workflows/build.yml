@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -28,9 +31,17 @@ jobs:
       shell: powershell
       run: |
         $versions = @("2021", "2022", "2023", "2024", "2025")
+        $ErrorActionPreference = "Stop"
         foreach ($ver in $versions) {
-            Write-Host "Building Release_$ver..."
-            dotnet build "Revit Tab\Revit Tab.csproj" -c "Release_$ver" --no-restore
+            Write-Host "===========================================" -ForegroundColor Cyan
+            Write-Host "Building Release_$ver..." -ForegroundColor Cyan
+            Write-Host "===========================================" -ForegroundColor Cyan
+            dotnet build "Revit Tab\Revit Tab.csproj" -c "Release_$ver" --no-restore -v minimal
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "Failed to build Release_$ver" -ForegroundColor Red
+                exit $LASTEXITCODE
+            }
+            Write-Host "Release_$ver built successfully!" -ForegroundColor Green
         }
 
     - name: Collect Artifacts
