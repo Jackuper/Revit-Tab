@@ -66,7 +66,25 @@ namespace Revit_Tab
                     var view = View3D.CreateIsometric(doc, view3DType.Id);
                     if (view == null) continue;
 
-                    view.Name = $"3D - {level.Name}";
+                    // Generate unique name by checking if it already exists
+                    string baseName = $"3D - {level.Name}";
+                    string viewName = baseName;
+                    int counter = 1;
+
+                    // Check if name exists and append number if needed
+                    var existingViews = new FilteredElementCollector(doc)
+                        .OfClass(typeof(View3D))
+                        .Cast<View3D>()
+                        .Select(v => v.Name)
+                        .ToList();
+
+                    while (existingViews.Contains(viewName))
+                    {
+                        viewName = $"{baseName} ({counter})";
+                        counter++;
+                    }
+
+                    view.Name = viewName;
                     view.SetSectionBox(sectionBox);
 
                     // CRITICAL: Activate the section box to make geometry visible
