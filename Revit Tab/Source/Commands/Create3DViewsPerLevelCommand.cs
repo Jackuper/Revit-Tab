@@ -109,15 +109,8 @@ namespace Revit_Tab
                     // CRITICAL: Activate the section box to make geometry visible
                     view.IsSectionBoxActive = true;
 
-                    // Try to set detail level (may not be allowed for some view types)
-                    try
-                    {
-                        view.DetailLevel = ViewDetailLevel.Fine;
-                    }
-                    catch
-                    {
-                        // Detail level couldn't be set - that's okay, continue
-                    }
+                    // Note: DetailLevel is not set because some 3D view templates don't allow it
+                    // The view will use the default detail level, which is fine for most cases
                 }
 
                 tx.Commit();
