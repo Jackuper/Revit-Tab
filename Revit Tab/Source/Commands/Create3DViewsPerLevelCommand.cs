@@ -17,6 +17,25 @@ namespace Revit_Tab
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
 
+            try
+            {
+                return ExecuteInternal(doc);
+            }
+            catch (Exception ex)
+            {
+                // Show detailed error information to help with debugging
+                TaskDialog.Show("Error in 3D Per Level Command",
+                    $"An error occurred:\n\n" +
+                    $"Message: {ex.Message}\n\n" +
+                    $"Type: {ex.GetType().Name}\n\n" +
+                    $"Stack Trace:\n{ex.StackTrace}");
+                return Result.Failed;
+            }
+        }
+
+        private Result ExecuteInternal(Document doc)
+        {
+
             ViewFamilyType view3DType = new FilteredElementCollector(doc)
                 .OfClass(typeof(ViewFamilyType))
                 .Cast<ViewFamilyType>()
@@ -90,8 +109,15 @@ namespace Revit_Tab
                     // CRITICAL: Activate the section box to make geometry visible
                     view.IsSectionBoxActive = true;
 
-                    // Optional: Set detail level for better visibility
-                    view.DetailLevel = ViewDetailLevel.Fine;
+                    // Try to set detail level (may not be allowed for some view types)
+                    try
+                    {
+                        view.DetailLevel = ViewDetailLevel.Fine;
+                    }
+                    catch
+                    {
+                        // Detail level couldn't be set - that's okay, continue
+                    }
                 }
 
                 tx.Commit();
