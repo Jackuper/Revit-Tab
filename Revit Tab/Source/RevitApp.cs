@@ -14,14 +14,6 @@ namespace Revit_Tab
     {
         public Result OnStartup(UIControlledApplication application)
         {
-            // Show version check to confirm new code is loaded
-            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-            string version = System.Diagnostics.FileVersionInfo.GetVersionInfo(assemblyLocation).FileVersion ?? "Unknown";
-            string buildTime = System.IO.File.GetLastWriteTime(assemblyLocation).ToString("yyyy-MM-dd HH:mm:ss");
-
-            TaskDialog.Show("Add-in Loading",
-                $"Assembly: {assemblyLocation}\nBuild Time: {buildTime}\nThis is the FIXED version with panel checking.");
-
             string tabName = "Clancy Theys";
             string panelName = "Project Setup";
 
