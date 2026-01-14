@@ -85,8 +85,8 @@ namespace Revit_Tab
                     var view = View3D.CreateIsometric(doc, view3DType.Id);
                     if (view == null) continue;
 
-                    // Generate unique name by checking if it already exists
-                    string baseName = $"3D - {level.Name}";
+                    // Generate unique name with Z3D- prefix for easy searching
+                    string baseName = $"Z3D-{level.Name}";
                     string viewName = baseName;
                     int counter = 1;
 
@@ -116,7 +116,10 @@ namespace Revit_Tab
                 tx.Commit();
             }
 
-            TaskDialog.Show("Done", $"Created {levels.Count} level-cut 3D views.");
+            TaskDialog.Show("Done",
+                $"Created {levels.Count} level-cut 3D views.\n\n" +
+                $"Views are named 'Z3D-Level Name'.\n\n" +
+                $"Tip: Type 'Z3D' in the Project Browser search to find them quickly!");
             return Result.Succeeded;
         }
 
