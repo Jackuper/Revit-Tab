@@ -67,6 +67,7 @@
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="25.10.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.*" />
+    <PackageReference Include="PdfPig" Version="0.1.*" />
   </ItemGroup>
 
   <!-- System.Drawing for screenshot capture -->

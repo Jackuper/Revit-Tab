@@ -298,4 +298,21 @@ namespace Revit_Tab
             Type = t
         };
     }
+
+    /// <summary>
+    /// Data extracted from one page of a MiTek shop drawing PDF.
+    /// Used to populate the review grid before saving to trusses.json.
+    /// </summary>
+    public class ExtractedTrussType
+    {
+        public string TypeKey          { get; set; }
+        public double DepthInches      { get; set; }
+        public string TopChordSize     { get; set; }
+        public string BotChordSize     { get; set; }
+        public string WebSize          { get; set; }
+        public double WebSpacingInches { get; set; } = 24;
+        public string WebPattern       { get; set; } = "vertical";
+        /// <summary>Filled in from the dialog's Default Family field.</summary>
+        public string FamilyName       { get; set; } = "Wood Timber-Lumber";
+    }
 }
