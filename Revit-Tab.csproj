@@ -68,10 +68,20 @@
     <PackageReference Include="Aspose.Cells" Version="25.10.0" />
   </ItemGroup>
 
+  <!-- System.Drawing for screenshot capture -->
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
   <!-- Include addon file and resources -->
   <ItemGroup>
     <None Remove="Utility\MyCustomTab.addin" />
     <Content Include="Utility\MyCustomTab.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Utility\trusses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Families\**">

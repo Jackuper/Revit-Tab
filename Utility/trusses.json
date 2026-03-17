@@ -1,0 +1,26 @@
+{
+  "trussTypes": {
+    "F60": {
+      "depthInches": 60,
+      "topChordFamily": "Wood Timber-Lumber",
+      "topChordType": "2x4",
+      "bottomChordFamily": "Wood Timber-Lumber",
+      "bottomChordType": "2x4",
+      "webFamily": "Wood Timber-Lumber",
+      "webType": "2x3",
+      "webSpacingInches": 24,
+      "webPattern": "vertical"
+    },
+    "F62": {
+      "depthInches": 62,
+      "topChordFamily": "Wood Timber-Lumber",
+      "topChordType": "2x4",
+      "bottomChordFamily": "Wood Timber-Lumber",
+      "bottomChordType": "2x4",
+      "webFamily": "Wood Timber-Lumber",
+      "webType": "2x3",
+      "webSpacingInches": 24,
+      "webPattern": "diagonal"
+    }
+  }
+}
