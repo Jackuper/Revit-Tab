@@ -127,6 +127,16 @@ namespace Revit_Tab
             PushButton importTrussBtn = panel.AddItem(importTrussBtnData) as PushButton;
             importTrussBtn.ToolTip = "Generate 3D truss framing from a DWG layout file.";
 
+            // Button 6 - Load Shop Drawing
+            PushButtonData loadShopBtnData = new PushButtonData(
+                "LoadShopDrawing",
+                "Load Shop\nDrawing",
+                assemblyPath,
+                "Revit_Tab.LoadShopDrawingCommand"
+            );
+            PushButton loadShopBtn = panel.AddItem(loadShopBtnData) as PushButton;
+            loadShopBtn.ToolTip = "Parse a MiTek PDF shop drawing to auto-populate trusses.json.";
+
             return Result.Succeeded;
         }
 
