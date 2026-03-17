@@ -99,6 +99,34 @@ namespace Revit_Tab
                 view3DButton.Image = view3DImage;
             }
 
+            // Button 4 - Log Viewer
+            PushButtonData logViewerButtonData = new PushButtonData(
+                "OpenLogViewer",
+                "Log Viewer",
+                assemblyPath,
+                "Revit_Tab.OpenLogViewerCommand"
+            );
+            PushButton logViewerButton = panel.AddItem(logViewerButtonData) as PushButton;
+            logViewerButton.ToolTip = "Open the real-time log viewer to monitor command execution and errors.";
+
+            // You can add an icon for the log viewer button if desired
+            // var logViewerImage = GetImageSource("Revit_Tab.Images.LogViewer.png");
+            // if (logViewerImage != null)
+            // {
+            //     logViewerButton.LargeImage = logViewerImage;
+            //     logViewerButton.Image = logViewerImage;
+            // }
+
+            // Button 5 - Import Trusses
+            PushButtonData importTrussBtnData = new PushButtonData(
+                "ImportTrusses",
+                "Import\nTrusses",
+                assemblyPath,
+                "Revit_Tab.ImportTrussCommand"
+            );
+            PushButton importTrussBtn = panel.AddItem(importTrussBtnData) as PushButton;
+            importTrussBtn.ToolTip = "Generate 3D truss framing from a DWG layout file.";
+
             return Result.Succeeded;
         }
 
