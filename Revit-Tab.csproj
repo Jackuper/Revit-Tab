@@ -66,6 +66,7 @@
   <!-- Common dependencies -->
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="25.10.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.*" />
   </ItemGroup>
 
   <!-- System.Drawing for screenshot capture -->
@@ -73,6 +74,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <!-- Exclude snippet files that are not compilable classes -->
+  <ItemGroup>
+    <Compile Remove="App_RibbonSnippet.cs" />
   </ItemGroup>
 
   <!-- Include addon file and resources -->

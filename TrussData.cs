@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Autodesk.Revit.DB;
+using Newtonsoft.Json;
 
 namespace Revit_Tab
 {
@@ -43,7 +45,7 @@ namespace Revit_Tab
                     "Create this file to define your truss type profiles.");
 
             string json = System.IO.File.ReadAllText(path);
-            var config = Newtonsoft.Json.JsonConvert.DeserializeObject<TrussConfig>(json);
+            var config = JsonConvert.DeserializeObject<TrussConfig>(json);
 
             if (config?.TrussTypes == null || config.TrussTypes.Count == 0)
                 throw new System.Exception("trusses.json loaded but contains no truss types.");
@@ -52,6 +54,26 @@ namespace Revit_Tab
         }
     }
 
+
+    /// <summary>
+    /// A single truss placement: real-world plan position + detected type.
+    /// X/Y are in Revit internal units (feet). AngleRadians = rotation in plan.
+    /// </summary>
+    public class TrussInstance
+    {
+        /// <summary>Plan start point (Z = 0, elevation handled separately).</summary>
+        public double StartX { get; set; }
+        public double StartY { get; set; }
+        /// <summary>Plan end point.</summary>
+        public double EndX { get; set; }
+        public double EndY { get; set; }
+        public double LengthFeet { get; set; }
+        /// <summary>Rotation angle in plan (radians, measured from X-axis).</summary>
+        public double AngleRadians { get; set; }
+        /// <summary>Truss type key from trusses.json (e.g. "F62"). Null if not detected.</summary>
+        public string DetectedType { get; set; }
+        public string Layer { get; set; }
+    }
 
     /// <summary>
     /// Represents a single truss centerline extracted from the DWG plan.
@@ -128,72 +150,152 @@ namespace Revit_Tab
         Web
     }
 
-    /// <summary>
-    /// Generates all 3D members for a single truss from its centerline + specs.
-    /// </summary>
     public static class TrussBuilder
     {
         /// <summary>
-        /// Builds the full member list for one truss.
-        /// The truss stands vertically: bottom chord at BaseElevation,
-        /// top chord at BaseElevation + Depth.
-        /// Webs run vertically between chords at regular intervals.
+        /// Builds all 3D members for one truss.
+        /// baseElevFeet = bottom chord elevation above project origin.
         /// </summary>
-        public static List<TrussMember> BuildMembers(TrussCenterline cl, TrussSpecs specs)
+        public static List<TrussMember> BuildMembers(
+            TrussInstance inst,
+            TrussTypeConfig config,
+            double baseElevFeet)
         {
             var members = new List<TrussMember>();
 
-            double x1 = cl.StartX;
-            double y1 = cl.StartY;
-            double x2 = cl.EndX;
-            double y2 = cl.EndY;
+            double depthFeet = config.DepthInches / 12.0;
+            double spacingFeet = config.WebSpacingInches / 12.0;
+            double length = inst.LengthFeet;
+            double zBot = baseElevFeet;
+            double zTop = baseElevFeet + depthFeet;
+            double cos = System.Math.Cos(inst.AngleRadians);
+            double sin = System.Math.Sin(inst.AngleRadians);
 
-            double zBot = specs.BaseElevationFeet;
-            double zTop = specs.BaseElevationFeet + specs.DepthFeet;
+            // Helper: convert local truss coordinate (t = 0..1 along length) to world XYZ
+            XYZ WorldPt(double t, double z)
+            {
+                double d = t * length;
+                return new XYZ(
+                    inst.StartX + d * cos,
+                    inst.StartY + d * sin,
+                    z);
+            }
 
-            // Bottom chord — runs at base elevation
+            // Bottom chord
             members.Add(new TrussMember
             {
-                X1 = x1, Y1 = y1, Z1 = zBot,
-                X2 = x2, Y2 = y2, Z2 = zBot,
+                X1 = inst.StartX, Y1 = inst.StartY, Z1 = zBot,
+                X2 = inst.EndX,   Y2 = inst.EndY,   Z2 = zBot,
                 Type = MemberType.BottomChord
             });
 
-            // Top chord — runs at top elevation
+            // Top chord
             members.Add(new TrussMember
             {
-                X1 = x1, Y1 = y1, Z1 = zTop,
-                X2 = x2, Y2 = y2, Z2 = zTop,
+                X1 = inst.StartX, Y1 = inst.StartY, Z1 = zTop,
+                X2 = inst.EndX,   Y2 = inst.EndY,   Z2 = zTop,
                 Type = MemberType.TopChord
             });
 
-            // Web members — vertical posts at spacing intervals
-            double dx = x2 - x1;
-            double dy = y2 - y1;
-            double length = System.Math.Sqrt(dx * dx + dy * dy);
-
-            if (specs.WebSpacingFeet > 0 && length > 0)
+            // Web members
+            switch ((config.WebPattern ?? "vertical").ToLowerInvariant())
             {
-                double spacing = specs.WebSpacingFeet;
-                int webCount = (int)(length / spacing);
-
-                // Always place webs at start and end, plus intermediate
-                for (int i = 0; i <= webCount; i++)
-                {
-                    double t = (i == webCount) ? 1.0 : (i * spacing / length);
-                    double wx = x1 + t * dx;
-                    double wy = y1 + t * dy;
-
-                    members.Add(new TrussMember
-                    {
-                        X1 = wx, Y1 = wy, Z1 = zBot,
-                        X2 = wx, Y2 = wy, Z2 = zTop,
-                        Type = MemberType.Web
-                    });
-                }
+                case "diagonal":
+                    members.AddRange(BuildDiagonalWebs(length, spacingFeet, zBot, zTop, WorldPt));
+                    break;
+                case "fink":
+                    members.AddRange(BuildFinkWebs(length, zBot, zTop, WorldPt));
+                    break;
+                default: // "vertical"
+                    members.AddRange(BuildVerticalWebs(length, spacingFeet, zBot, zTop, WorldPt));
+                    break;
             }
 
             return members;
         }
+
+        // --- vertical: straight posts at spacing intervals ---
+        private static List<TrussMember> BuildVerticalWebs(
+            double length, double spacing, double zBot, double zTop,
+            System.Func<double, double, XYZ> WorldPt)
+        {
+            var webs = new List<TrussMember>();
+            if (spacing <= 0 || length <= 0) return webs;
+
+            int count = (int)(length / spacing);
+            for (int i = 0; i <= count; i++)
+            {
+                double t = (i == count) ? 1.0 : (i * spacing / length);
+                var bot = WorldPt(t, zBot);
+                var top = WorldPt(t, zTop);
+                webs.Add(Member(bot, top, MemberType.Web));
+            }
+            return webs;
+        }
+
+        // --- diagonal (Warren): alternating diagonals ---
+        private static List<TrussMember> BuildDiagonalWebs(
+            double length, double spacing, double zBot, double zTop,
+            System.Func<double, double, XYZ> WorldPt)
+        {
+            var webs = new List<TrussMember>();
+            if (spacing <= 0 || length <= 0) return webs;
+
+            int panels = (int)System.Math.Max(1, System.Math.Round(length / spacing));
+
+            for (int i = 0; i < panels; i++)
+            {
+                double t0 = (double)i / panels;
+                double t1 = (double)(i + 1) / panels;
+
+                if (i % 2 == 0)
+                    webs.Add(Member(WorldPt(t0, zBot), WorldPt(t1, zTop), MemberType.Web));
+                else
+                    webs.Add(Member(WorldPt(t0, zTop), WorldPt(t1, zBot), MemberType.Web));
+            }
+
+            // Verticals at panel points (Warren-with-verticals variant)
+            for (int i = 1; i < panels; i++)
+            {
+                double t = (double)i / panels;
+                webs.Add(Member(WorldPt(t, zBot), WorldPt(t, zTop), MemberType.Web));
+            }
+
+            return webs;
+        }
+
+        // --- fink (W): two ridge nodes + center node, mirrored diagonals ---
+        private static List<TrussMember> BuildFinkWebs(
+            double length, double zBot, double zTop,
+            System.Func<double, double, XYZ> WorldPt)
+        {
+            var webs = new List<TrussMember>();
+
+            // End verticals
+            webs.Add(Member(WorldPt(0.0, zBot), WorldPt(0.0, zTop), MemberType.Web));
+            webs.Add(Member(WorldPt(1.0, zBot), WorldPt(1.0, zTop), MemberType.Web));
+
+            // Center vertical
+            webs.Add(Member(WorldPt(0.5, zBot), WorldPt(0.5, zTop), MemberType.Web));
+
+            // Quarter-point verticals
+            webs.Add(Member(WorldPt(0.25, zBot), WorldPt(0.25, zTop), MemberType.Web));
+            webs.Add(Member(WorldPt(0.75, zBot), WorldPt(0.75, zTop), MemberType.Web));
+
+            // W diagonals
+            webs.Add(Member(WorldPt(0.0,  zBot), WorldPt(0.25, zTop), MemberType.Web));
+            webs.Add(Member(WorldPt(0.5,  zBot), WorldPt(0.25, zTop), MemberType.Web));
+            webs.Add(Member(WorldPt(0.5,  zBot), WorldPt(0.75, zTop), MemberType.Web));
+            webs.Add(Member(WorldPt(1.0,  zBot), WorldPt(0.75, zTop), MemberType.Web));
+
+            return webs;
+        }
+
+        private static TrussMember Member(XYZ a, XYZ b, MemberType t) => new TrussMember
+        {
+            X1 = a.X, Y1 = a.Y, Z1 = a.Z,
+            X2 = b.X, Y2 = b.Y, Z2 = b.Z,
+            Type = t
+        };
     }
 }
