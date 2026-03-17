@@ -19,13 +19,23 @@ namespace Revit_Tab
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            UIApplication uiApp = commandData.Application;
-            UIDocument uiDoc = uiApp.ActiveUIDocument;
-            Document doc = uiDoc.Document;
+            UIDocument uiDoc = commandData.Application.ActiveUIDocument;
+            Document   doc   = uiDoc.Document;
 
             try
             {
-                // Collect all levels in the model
+                // Load config — fails fast with a clear message if trusses.json is missing
+                TrussConfig config;
+                try
+                {
+                    config = TrussConfig.Load();
+                }
+                catch (Exception ex)
+                {
+                    TaskDialog.Show("Truss Config Error", ex.Message);
+                    return Result.Failed;
+                }
+
                 var levels = new FilteredElementCollector(doc)
                     .OfClass(typeof(Level))
                     .Cast<Level>()
@@ -38,23 +48,10 @@ namespace Revit_Tab
                     return Result.Failed;
                 }
 
-                // Collect all structural framing family names loaded in the model
-                var familyNames = new FilteredElementCollector(doc)
-                    .OfClass(typeof(FamilySymbol))
-                    .OfCategory(BuiltInCategory.OST_StructuralFraming)
-                    .Cast<FamilySymbol>()
-                    .Select(fs => fs.FamilyName)
-                    .Distinct()
-                    .OrderBy(n => n)
-                    .ToList();
-
-                // Show the dialog
-                var dialog = new TrussImportDialog(doc)
+                var dialog = new TrussImportDialog(doc, config)
                 {
-                    AvailableLevels = levels,
-                    AvailableFamilyNames = familyNames
+                    AvailableLevels = levels
                 };
-
                 dialog.Populate();
                 dialog.ShowDialog();
 
