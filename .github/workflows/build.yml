@@ -25,7 +25,7 @@ jobs:
           6.0.x
 
     - name: Restore dependencies
-      run: dotnet restore "Revit Tab\Revit Tab.csproj"
+      run: dotnet restore "Revit-Tab.csproj"
 
     - name: Build All Versions
       shell: powershell
@@ -36,7 +36,7 @@ jobs:
             Write-Host "===========================================" -ForegroundColor Cyan
             Write-Host "Building Release_$ver..." -ForegroundColor Cyan
             Write-Host "===========================================" -ForegroundColor Cyan
-            dotnet build "Revit Tab\Revit Tab.csproj" -c "Release_$ver" --no-restore -v minimal
+            dotnet build "Revit-Tab.csproj" -c "Release_$ver" --no-restore -v minimal
             if ($LASTEXITCODE -ne 0) {
                 Write-Host "Failed to build Release_$ver" -ForegroundColor Red
                 exit $LASTEXITCODE
@@ -55,14 +55,14 @@ jobs:
             
             # Identify output path (handling net48 vs net8.0-windows)
             if ($ver -eq "2025") {
-                $src = "Revit Tab\bin\Release\$ver\net8.0-windows"
+                $src = "bin\Release\$ver\net8.0-windows"
             } else {
-                $src = "Revit Tab\bin\Release\$ver\net48"
+                $src = "bin\Release\$ver\net48"
             }
-            
+
             if (Test-Path $src) {
                 Copy-Item "$src\*.dll" -Destination $dest
-                Copy-Item "Revit Tab\Utility\MyCustomTab.addin" -Destination "$dest\Jcup.addin"
+                Copy-Item "Utility\MyCustomTab.addin" -Destination "$dest\Jcup.addin"
             }
         }
 
