@@ -44,11 +44,10 @@ namespace Revit_Tab
             try
             {
                 // Try to get a running AutoCAD instance first
-                try
-                {
-                    acApp = Marshal.GetActiveObject("AutoCAD.Application");
-                }
-                catch
+#if NETFRAMEWORK
+                try { acApp = Marshal.GetActiveObject("AutoCAD.Application"); } catch { }
+#endif
+                if (acApp == null)
                 {
                     // No running instance — create a new hidden one
                     Type acType = Type.GetTypeFromProgID("AutoCAD.Application");
@@ -173,8 +172,10 @@ namespace Revit_Tab
 
             try
             {
-                try { acApp = Marshal.GetActiveObject("AutoCAD.Application"); }
-                catch
+#if NETFRAMEWORK
+                try { acApp = Marshal.GetActiveObject("AutoCAD.Application"); } catch { }
+#endif
+                if (acApp == null)
                 {
                     Type t = Type.GetTypeFromProgID("AutoCAD.Application");
                     if (t == null) throw new Exception("AutoCAD is not installed or not registered.");
@@ -317,8 +318,10 @@ namespace Revit_Tab
 
             try
             {
-                try { acApp = Marshal.GetActiveObject("AutoCAD.Application"); }
-                catch
+#if NETFRAMEWORK
+                try { acApp = Marshal.GetActiveObject("AutoCAD.Application"); } catch { }
+#endif
+                if (acApp == null)
                 {
                     Type t = Type.GetTypeFromProgID("AutoCAD.Application");
                     acApp = Activator.CreateInstance(t);
