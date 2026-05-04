@@ -7,12 +7,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using Revit_Tab.Utility;
 
 namespace Revit_Tab
 {
     [Transaction(TransactionMode.Manual)]
     public class CreateKingStudsCommand : IExternalCommand
     {
+        private const string COMMAND_NAME = "Create King Studs";
+
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             UIDocument uiDoc = commandData.Application.ActiveUIDocument;
@@ -20,10 +24,22 @@ namespace Revit_Tab
 
             try
             {
-                // Find the symbol in the project first; if missing, attempt to load it from the deployed add-in folder.
+                ErrorHandler.LogInfo(COMMAND_NAME, "Command started");
+
+                // Validate document is editable
+                if (doc.IsReadOnly)
+                {
+                    string errorMsg = "The document is read-only. Please ensure the document is editable before running this command.";
+                    ErrorHandler.ShowValidationError(COMMAND_NAME, errorMsg);
+                    message = errorMsg;
+                    return Result.Failed;
+                }
+
+                // Find or load the stud family
                 FamilySymbol studType = FindStudSymbol(doc);
                 if (studType == null)
                 {
+                    ErrorHandler.LogInfo(COMMAND_NAME, "Stud family not found in project, attempting to load");
                     studType = TryLoadStudFamilyAndFindSymbol(doc);
                 }
 
@@ -32,70 +48,216 @@ namespace Revit_Tab
                     string assemblyPath = Assembly.GetExecutingAssembly().Location;
                     string assemblyDir = Path.GetDirectoryName(assemblyPath);
                     string familyPath = Path.Combine(assemblyDir, "Families", "Stud.rfa");
-                    TaskDialog.Show("King Studs", "Could not find or load a stud family type.\nExpected family file at:\n" + familyPath);
+
+                    string errorMsg = "Could not find or load a stud family.\n\n" +
+                                     "The command requires a family named 'Stud' or containing 'Stud' in its name.\n\n" +
+                                     $"Expected location:\n{familyPath}\n\n" +
+                                     "Please ensure the Stud.rfa family is available.";
+
+                    ErrorHandler.ShowValidationError(COMMAND_NAME, errorMsg);
+                    ErrorHandler.LogError($"Stud family not found at: {familyPath}");
+                    message = "Stud family not found";
                     return Result.Cancelled;
                 }
 
-                // Collect all doors and windows from linked models (and also from host model, in case they exist there too)
+                ErrorHandler.LogInfo(COMMAND_NAME, $"Using stud family: {studType.Family.Name} - {studType.Name}");
+
+                // Collect all openings from host and linked models
                 var openingSources = CollectOpeningsFromHostAndLinks(doc);
 
-                using (Transaction t = new Transaction(doc, "Create King Studs"))
+                if (openingSources.Count == 0)
                 {
-                    t.Start();
+                    string infoMsg = "No doors or windows found in the project or linked models.\n\n" +
+                                    "Please ensure your project contains doors or windows where king studs should be placed.";
+                    TaskDialog.Show(COMMAND_NAME, infoMsg);
+                    ErrorHandler.LogInfo(COMMAND_NAME, "No openings found");
+                    return Result.Succeeded;
+                }
 
+                ErrorHandler.LogInfo(COMMAND_NAME, $"Found {openingSources.Count} opening(s) to process");
+
+                // Process openings and create studs
+                int successCount = 0;
+                int skippedCount = 0;
+                StringBuilder errorLog = new StringBuilder();
+                StringBuilder skippedLog = new StringBuilder();
+
+                using (var guard = new TransactionGuard(doc, "Create King Studs", COMMAND_NAME))
+                {
                     // Activate the type if not already active
                     if (!studType.IsActive)
+                    {
                         studType.Activate();
+                        ErrorHandler.LogInfo(COMMAND_NAME, "Activated stud family type");
+                    }
 
                     foreach (var source in openingSources)
                     {
-                        FamilyInstance fi = source.Opening;
-                        if (fi == null) continue;
-
-                        LocationPoint locPt = fi.Location as LocationPoint;
-                        if (locPt == null) continue;
-
-                        // Linked elements are transformed into host coordinates. Host elements use identity transform.
-                        XYZ originHost = source.Transform.OfPoint(locPt.Point);
-
-                        // Direction comes from host wall (in the same document as the opening), then transformed.
-                        Wall sourceHostWall = fi.Host as Wall;
-                        if (sourceHostWall == null) continue;
-
-                        LocationCurve wallLocCurve = sourceHostWall.Location as LocationCurve;
-                        if (wallLocCurve?.Curve == null) continue;
-
-                        XYZ p0Host = source.Transform.OfPoint(wallLocCurve.Curve.GetEndPoint(0));
-                        XYZ p1Host = source.Transform.OfPoint(wallLocCurve.Curve.GetEndPoint(1));
-                        XYZ wallLineDirHost = (p1Host - p0Host).Normalize();
-
-                        double offset = UnitUtils.ConvertToInternalUnits(3.5, UnitTypeId.Inches);
-
-                        XYZ leftHost = originHost - wallLineDirHost * offset;
-                        XYZ rightHost = originHost + wallLineDirHost * offset;
-
-                        // Place instances in the host document only.
-                        // When reading from a link, we select the closest host level by elevation.
-                        Level hostLevel = GetBestHostLevel(doc, source.LevelElevation);
-                        if (hostLevel == null)
+                        try
                         {
-                            continue;
-                        }
+                            if (!ProcessOpening(doc, source, studType, out string skipReason))
+                            {
+                                skippedCount++;
+                                if (!string.IsNullOrEmpty(skipReason))
+                                {
+                                    skippedLog.AppendLine($"• {skipReason}");
+                                }
+                                continue;
+                            }
 
-                        doc.Create.NewFamilyInstance(leftHost, studType, hostLevel, StructuralType.NonStructural);
-                        doc.Create.NewFamilyInstance(rightHost, studType, hostLevel, StructuralType.NonStructural);
+                            successCount += 2; // Two studs per opening
+                        }
+                        catch (Exception ex)
+                        {
+                            string openingInfo = GetOpeningInfo(source.Opening);
+                            errorLog.AppendLine($"• {openingInfo}: {ex.Message}");
+                            ErrorHandler.LogError($"Error processing {openingInfo}: {ex.Message}");
+                            skippedCount++;
+                        }
                     }
 
-                    t.Commit();
+                    guard.Commit();
                 }
 
-                TaskDialog.Show("King Studs", "King studs created successfully.");
+                // Show results
+                ShowResults(successCount, skippedCount, openingSources.Count, errorLog, skippedLog);
+
+                ErrorHandler.LogInfo(COMMAND_NAME, $"Command completed: {successCount} studs created, {skippedCount} openings skipped");
                 return Result.Succeeded;
             }
             catch (Exception ex)
             {
+                ErrorHandler.HandleError(COMMAND_NAME, ex);
                 message = ex.Message;
                 return Result.Failed;
+            }
+        }
+
+        private bool ProcessOpening(Document doc, OpeningSource source, FamilySymbol studType, out string skipReason)
+        {
+            skipReason = null;
+
+            FamilyInstance fi = source.Opening;
+            if (fi == null)
+            {
+                skipReason = "Invalid opening instance";
+                return false;
+            }
+
+            LocationPoint locPt = fi.Location as LocationPoint;
+            if (locPt == null)
+            {
+                skipReason = $"{GetOpeningInfo(fi)}: No location point";
+                return false;
+            }
+
+            // Transform location to host coordinates
+            XYZ originHost = source.Transform.OfPoint(locPt.Point);
+
+            // Get the host wall
+            Wall sourceHostWall = fi.Host as Wall;
+            if (sourceHostWall == null)
+            {
+                skipReason = $"{GetOpeningInfo(fi)}: Not hosted on a wall";
+                return false;
+            }
+
+            LocationCurve wallLocCurve = sourceHostWall.Location as LocationCurve;
+            if (wallLocCurve?.Curve == null)
+            {
+                skipReason = $"{GetOpeningInfo(fi)}: Wall has no location curve";
+                return false;
+            }
+
+            // Calculate stud positions
+            XYZ p0Host = source.Transform.OfPoint(wallLocCurve.Curve.GetEndPoint(0));
+            XYZ p1Host = source.Transform.OfPoint(wallLocCurve.Curve.GetEndPoint(1));
+            XYZ wallLineDirHost = (p1Host - p0Host).Normalize();
+
+            double offset = UnitUtils.ConvertToInternalUnits(3.5, UnitTypeId.Inches);
+
+            XYZ leftHost = originHost - wallLineDirHost * offset;
+            XYZ rightHost = originHost + wallLineDirHost * offset;
+
+            // Find appropriate level
+            Level hostLevel = GetBestHostLevel(doc, source.LevelElevation);
+            if (hostLevel == null)
+            {
+                skipReason = $"{GetOpeningInfo(fi)}: No matching level found";
+                return false;
+            }
+
+            // Place the studs
+            doc.Create.NewFamilyInstance(leftHost, studType, hostLevel, StructuralType.NonStructural);
+            doc.Create.NewFamilyInstance(rightHost, studType, hostLevel, StructuralType.NonStructural);
+
+            return true;
+        }
+
+        private void ShowResults(int successCount, int skippedCount, int totalOpenings, StringBuilder errorLog, StringBuilder skippedLog)
+        {
+            StringBuilder resultMessage = new StringBuilder();
+            resultMessage.AppendLine($"Processed {totalOpenings} opening(s):");
+            resultMessage.AppendLine($"✓ Created {successCount} king stud(s)");
+
+            if (skippedCount > 0)
+            {
+                resultMessage.AppendLine($"⚠ Skipped {skippedCount} opening(s)");
+            }
+
+            StringBuilder expandedContent = new StringBuilder();
+
+            if (skippedLog.Length > 0)
+            {
+                expandedContent.AppendLine("Skipped Openings:");
+                expandedContent.AppendLine(skippedLog.ToString());
+            }
+
+            if (errorLog.Length > 0)
+            {
+                if (expandedContent.Length > 0)
+                    expandedContent.AppendLine();
+                expandedContent.AppendLine("Errors:");
+                expandedContent.AppendLine(errorLog.ToString());
+            }
+
+            TaskDialog resultDialog = new TaskDialog(COMMAND_NAME)
+            {
+                MainIcon = errorLog.Length > 0 ? TaskDialogIcon.TaskDialogIconWarning : TaskDialogIcon.TaskDialogIconInformation,
+                MainInstruction = successCount > 0 ? "King Studs Created Successfully" : "No King Studs Created",
+                MainContent = resultMessage.ToString(),
+                CommonButtons = TaskDialogCommonButtons.Close,
+                DefaultButton = TaskDialogResult.Close
+            };
+
+            if (expandedContent.Length > 0)
+            {
+                resultDialog.ExpandedContent = expandedContent.ToString();
+            }
+
+            if (errorLog.Length > 0 || skippedLog.Length > 0)
+            {
+                resultDialog.FooterText = "Logs saved to: " + ErrorHandler.GetLogDirectory();
+            }
+
+            resultDialog.Show();
+        }
+
+        private string GetOpeningInfo(FamilyInstance opening)
+        {
+            if (opening == null)
+                return "Unknown opening";
+
+            try
+            {
+                string category = opening.Category?.Name ?? "Unknown";
+                string family = opening.Symbol?.Family?.Name ?? "Unknown";
+                string id = opening.Id.ToString();
+                return $"{category} ({family}) [ID: {id}]";
+            }
+            catch
+            {
+                return $"Opening [ID: {opening.Id}]";
             }
         }
 

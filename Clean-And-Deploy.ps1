@@ -30,9 +30,9 @@ foreach ($version in $revitVersions) {
 
     # Determine which build to deploy
     if ($version -eq "2025") {
-        $sourceDll = "$projectPath\Revit Tab\bin\Debug\net8.0-windows"
+        $sourceDll = "$projectPath\bin\Debug\net8.0-windows"
     } else {
-        $sourceDll = "$projectPath\Revit Tab\bin\Debug\net48"
+        $sourceDll = "$projectPath\bin\Debug\net48"
     }
 
     # Check if build exists
@@ -52,7 +52,7 @@ foreach ($version in $revitVersions) {
 
     # Copy .addin file
     Write-Host "  Copying .addin file..." -ForegroundColor Gray
-    Copy-Item "$projectPath\Revit Tab\Utility\MyCustomTab.addin" -Destination $addinFile -Force
+    Copy-Item "$projectPath\Utility\MyCustomTab.addin" -Destination $addinFile -Force
 
     Write-Host "  Deployed successfully!" -ForegroundColor Green
 }

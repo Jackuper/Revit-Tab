@@ -1,0 +1,118 @@
+<Window x:Class="Revit_Tab.Utility.LogViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Revit Tab - Log Viewer"
+        Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
+    <Window.Resources>
+        <!-- Style for log text -->
+        <Style x:Key="LogTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Consolas, Courier New"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Background" Value="#0078D4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#106EBE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <Border Grid.Row="0" Background="White" BorderBrush="#CCCCCC" BorderThickness="0,0,0,1" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock Text="Log Level:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="SemiBold"/>
+                    <ComboBox x:Name="FilterComboBox" Width="120" SelectionChanged="FilterComboBox_SelectionChanged">
+                        <ComboBoxItem Content="All" IsSelected="True"/>
+                        <ComboBoxItem Content="INFO"/>
+                        <ComboBoxItem Content="ERROR"/>
+                    </ComboBox>
+
+                    <CheckBox x:Name="AutoScrollCheckBox" Content="Auto-scroll"
+                              IsChecked="True"
+                              VerticalAlignment="Center"
+                              Margin="20,0,0,0"/>
+
+                    <Button Content="Refresh"
+                            Click="RefreshButton_Click"
+                            Style="{StaticResource ButtonStyle}"/>
+
+                    <Button Content="Clear Display"
+                            Click="ClearButton_Click"
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Content="Open Log Folder"
+                            Click="OpenLogFolderButton_Click"
+                            Style="{StaticResource ButtonStyle}"/>
+
+                    <Button Content="Open Screenshots"
+                            Click="OpenScreenshotsButton_Click"
+                            Style="{StaticResource ButtonStyle}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Log Display -->
+        <ScrollViewer x:Name="LogScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <TextBox x:Name="LogTextBox"
+                     Style="{StaticResource LogTextBoxStyle}"
+                     IsReadOnly="True"
+                     TextWrapping="NoWrap"
+                     AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"/>
+        </ScrollViewer>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="#F8F8F8" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0" Padding="10,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="StatusTextBlock"
+                           Grid.Column="0"
+                           Text="Ready"
+                           VerticalAlignment="Center"
+                           FontSize="11"
+                           Foreground="#666666"/>
+
+                <TextBlock x:Name="LogFileTextBlock"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="11"
+                           Foreground="#666666"
+                           FontFamily="Consolas"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -40,11 +40,10 @@ namespace Revit_Tab
 
         private static ExtractedTrussType ParsePage(Page page)
         {
-            // Extract all text from the page as one string (words joined by spaces)
-            var words = page.GetWords().Select(w => w.Text).ToList();
-            string fullText = string.Join(" ", words);
+            var wordList = page.GetWords().ToList();
+            string fullText = string.Join(" ", wordList.Select(w => w.Text));
 
-            string typeKey  = ExtractTrussType(fullText);
+            string typeKey  = ExtractTrussType(wordList);
             string topChord = ExtractLumberSize(fullText, "TOP CHORD");
             string botChord = ExtractLumberSize(fullText, "BOT CHORD");
             string webs     = ExtractLumberSize(fullText, "WEBS");
@@ -67,16 +66,39 @@ namespace Revit_Tab
         }
 
         /// <summary>
-        /// Finds the truss type label. MiTek puts "Truss Type" as a column header
-        /// with the value in the next cell. We look for text after "Truss Type".
+        /// Extracts the truss identifier from the header using word positions.
+        /// MiTek header row: Job | Truss | Truss Type | Qty | Ply
+        /// The truss ID (e.g. "F01", "PT2") sits directly below the standalone "Truss" column header.
         /// </summary>
-        private static string ExtractTrussType(string text)
+        private static string ExtractTrussType(List<UglyToad.PdfPig.Content.Word> words)
         {
-            var match = Regex.Match(text,
-                @"Truss\s+Type\s+([A-Za-z0-9\-]+)",
-                RegexOptions.IgnoreCase);
-            if (match.Success)
-                return match.Groups[1].Value.Trim();
+            for (int i = 0; i < words.Count; i++)
+            {
+                var w = words[i];
+                if (!string.Equals(w.Text, "Truss", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                // Skip "Truss" that is part of "Truss Type" compound header
+                if (i + 1 < words.Count &&
+                    string.Equals(words[i + 1].Text, "Type", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                // Found standalone "Truss" column header — find word directly below it.
+                // In PdfPig Y increases upward, so "below" = smaller Y value.
+                double colLeft   = w.BoundingBox.Left;
+                double colRight  = w.BoundingBox.Right;
+                double headerY   = w.BoundingBox.Bottom;
+
+                var candidate = words
+                    .Where(c => c.BoundingBox.Left  >= colLeft  - 10
+                             && c.BoundingBox.Right <= colRight + 40  // allow slightly wider value
+                             && c.BoundingBox.Bottom < headerY - 2)   // below header
+                    .OrderByDescending(c => c.BoundingBox.Bottom)     // closest below header
+                    .FirstOrDefault();
+
+                if (candidate != null && !string.IsNullOrWhiteSpace(candidate.Text))
+                    return candidate.Text;
+            }
 
             return null;
         }

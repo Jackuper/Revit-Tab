@@ -6,7 +6,7 @@ Custom Revit add-in for **Clancy Theys** providing automation tools for construc
 ## Quick Commands
 ```bash
 # Build (Debug for Revit 2023)
-dotnet build "Revit Tab/Revit Tab.csproj"
+dotnet build Revit-Tab.csproj
 
 # Build all release versions
 powershell -File build_and_package.ps1
@@ -20,7 +20,7 @@ powershell -File Deploy-Local.ps1
 
 ## Project Structure
 ```
-Revit Tab/
+Revit-Tab/                       # Root project folder
 ├── Source/
 │   ├── RevitApp.cs              # Main entry point, ribbon UI setup
 │   └── Commands/                # Command implementations
@@ -28,8 +28,9 @@ Revit Tab/
 ├── KingStuds/                   # Structural stud placement feature
 ├── Families/                    # Embedded .rfa family files
 ├── Images/                      # Button icons (PNG, 32px)
-└── Utility/
-    └── MyCustomTab.addin        # Add-in manifest
+├── Utility/
+│   └── MyCustomTab.addin        # Add-in manifest
+└── Revit-Tab.csproj             # Project file
 ```
 
 ## Current Features

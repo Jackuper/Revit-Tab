@@ -1,7 +1,7 @@
 # build_and_package.ps1
 
 $scriptPath = $PSScriptRoot
-$solutionPath = Join-Path $scriptPath "Revit Tab\Revit Tab.csproj"
+$solutionPath = Join-Path $scriptPath "Revit-Tab.csproj"
 $versions = @("2021", "2022", "2023", "2024", "2025")
 $deployRoot = Join-Path $scriptPath "Deploy"
 

@@ -12,7 +12,7 @@
 #>
 
 $SolutionPath = Join-Path $PSScriptRoot "Revit Tab.sln"
-$ProjectFolder = Join-Path $PSScriptRoot "Revit Tab"
+$ProjectFolder = $PSScriptRoot
 $BuildOutput = Join-Path $ProjectFolder "bin\Release"
 $TargetVersions = @("2022", "2023", "2024")
 
